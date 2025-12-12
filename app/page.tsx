@@ -1,5 +1,6 @@
 // app/page.tsx
 import type { Metadata } from "next";
+import HeroMain from "./components/heroMain/HeroMain";
 
 const siteName = "Kansha Hibachi & Sushi";
 
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <>
-      {/*<HeroMain/> */}
+      <HeroMain />
     </>
   );
 }
