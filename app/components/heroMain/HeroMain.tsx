@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPhone, faUtensils } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight, faArrowUpRightFromSquare, faLocationDot, faPhone, faUtensils } from "@fortawesome/free-solid-svg-icons";
 
 import styles from "./HeroMain.module.scss";
 
@@ -39,7 +39,11 @@ export default function HeroMain() {
           </div>
 
           <p className={styles.note}>
-            Located at 303 Cooper Blvd Suite I, Warrensburg, MO 64093
+            <FontAwesomeIcon icon={faLocationDot} className={styles.location} />
+            <Link href="https://goo.gl/maps/V9qXQh6mKFZmb15Z7" target="_blank">
+              Located at 303 Cooper Blvd Suite I, Warrensburg, MO 64093
+              <FontAwesomeIcon icon={faArrowUpRightFromSquare} className={styles.arrow} />
+            </Link>
           </p>
         </div>
 
