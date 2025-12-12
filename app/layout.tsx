@@ -2,7 +2,7 @@
 import type { Metadata, Viewport } from "next";
 import "./styles/_globals.scss";
 
-// import Navbar from "./components/navbar/Navbar";
+import Navbar from "./components/navbar/Navbar";
 // import Footer from "./components/footer/Footer";
 
 const siteName = "Kansha Hibachi & Sushi";
@@ -111,7 +111,7 @@ export default function RootLayout({
       </head>
       <body>
         <div className="siteShell">
-          {/* <Navbar /> */}
+          <Navbar />
           <main className="main">{children}</main>
           {/* <Footer /> */}
         </div>
