@@ -1,0 +1,31 @@
+/* app/styles/_variables.scss */
+
+/* Brand palette (soft pastel) */
+$kansha-yellow: #ffe08a;
+$kansha-blue-dark: #3c608c;
+$kansha-blue-light: #a9d8ff;
+$kansha-green-light: #9edbaa;
+
+$bg: #f7f9fc;
+$surface: #ffffff;
+$text: #2e4775;
+$text-muted: rgba(74, 91, 118, 0.72);
+$border: rgba(15, 42, 74, 0.12);
+
+$shadow: 0 10px 30px rgba(15, 42, 74, 0.12);
+$radius: 18px;
+
+$container: 1120px;
+
+$font-sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica,
+  Arial, "Apple Color Emoji", "Segoe UI Emoji";
+
+/* Spacing */
+$space-1: 6px;
+$space-2: 10px;
+$space-3: 14px;
+$space-4: 18px;
+$space-5: 24px;
+$space-6: 32px;
+$space-7: 44px;
+$space-8: 64px;

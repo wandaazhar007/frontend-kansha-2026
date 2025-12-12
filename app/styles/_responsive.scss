@@ -1,0 +1,25 @@
+/* app/styles/_responsive.scss */
+
+$bp-xs: 420px;
+$bp-sm: 640px;
+$bp-md: 768px;
+$bp-lg: 1024px;
+$bp-xl: 1280px;
+
+@mixin down($bp) {
+  @media (max-width: $bp) {
+    @content;
+  }
+}
+
+@mixin up($bp) {
+  @media (min-width: $bp) {
+    @content;
+  }
+}
+
+@mixin between($min, $max) {
+  @media (min-width: $min) and (max-width: $max) {
+    @content;
+  }
+}

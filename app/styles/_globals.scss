@@ -1,0 +1,278 @@
+/* app/styles/_globals.scss */
+@use "./variables" as *;
+@use "./responsive" as *;
+
+:root {
+  --kansha-yellow: #{$kansha-yellow};
+  --kansha-blue-dark: #{$kansha-blue-dark};
+  --kansha-blue-light: #{$kansha-blue-light};
+  --kansha-green-light: #{$kansha-green-light};
+
+  --bg: #{$bg};
+  --surface: #{$surface};
+  --text: #{$text};
+  --text-muted: #{$text-muted};
+  --border: #{$border};
+
+  --shadow: #{$shadow};
+  --radius: #{$radius};
+
+  --container: #{$container};
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: $font-sans;
+  color: var(--text);
+  background: radial-gradient(1200px 600px at 15% -10%,
+      rgba(255, 224, 138, 0.45),
+      transparent 60%),
+    radial-gradient(900px 500px at 95% 0%,
+      rgba(169, 216, 255, 0.45),
+      transparent 55%),
+    radial-gradient(900px 500px at 10% 95%,
+      rgba(191, 236, 200, 0.40),
+      transparent 55%),
+    var(--bg);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+::selection {
+  background: rgba(255, 224, 138, 0.75);
+}
+
+/* Layout helpers */
+.siteShell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  flex: 1;
+  width: 100%;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 $space-5;
+
+  @include down($bp-md) {
+    padding: 0 $space-4;
+  }
+}
+
+/* Typography */
+.h1 {
+  font-size: 48px;
+  line-height: 1.08;
+  margin: 0 0 $space-4 0;
+  letter-spacing: -0.02em;
+
+  @include down($bp-md) {
+    font-size: 36px;
+  }
+}
+
+.h2 {
+  font-size: 28px;
+  line-height: 1.2;
+  margin: 0 0 $space-3 0;
+  letter-spacing: -0.01em;
+}
+
+.lead {
+  font-size: 18px;
+  color: var(--text-muted);
+  margin: 0 0 $space-5 0;
+}
+
+.p {
+  margin: 0 0 $space-4 0;
+  color: var(--text-muted);
+}
+
+/* Buttons */
+.btnRow {
+  display: flex;
+  gap: $space-3;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  box-shadow: 0 6px 18px rgba(15, 42, 74, 0.10);
+  font-weight: 700;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 26px rgba(15, 42, 74, 0.14);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.btnPrimary {
+  border-color: rgba(15, 42, 74, 0.18);
+  background: linear-gradient(135deg,
+      rgba(255, 224, 138, 0.95),
+      rgba(191, 236, 200, 0.85));
+  color: var(--kansha-blue-dark);
+}
+
+.btnGhost {
+  background: rgba(255, 255, 255, 0.65);
+}
+
+/* Sections */
+.section {
+  padding: $space-8 0;
+
+  @include down($bp-md) {
+    padding: $space-7 0;
+  }
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: $space-6;
+
+  @include down($bp-md) {
+    padding: $space-5;
+  }
+}
+
+.grid2 {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: $space-6;
+  align-items: start;
+
+  @include down($bp-lg) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.grid3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $space-4;
+
+  @include down($bp-lg) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.badgeRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: $space-3;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid var(--border);
+  color: var(--kansha-blue-dark);
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.miniTitle {
+  font-weight: 900;
+  color: var(--kansha-blue-dark);
+  margin: 0 0 8px 0;
+}
+
+.list {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--text-muted);
+
+  li {
+    margin: 8px 0;
+  }
+}
+
+.hrSoft {
+  height: 1px;
+  background: rgba(15, 42, 74, 0.10);
+  border: 0;
+  margin: $space-6 0;
+}
+
+/* Hero */
+.hero {
+  padding: $space-8 0 $space-7;
+}
+
+.heroCard {
+  overflow: hidden;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    background: radial-gradient(900px 300px at 20% 0%,
+        rgba(255, 224, 138, 0.55),
+        transparent 55%),
+      radial-gradient(900px 300px at 90% 20%,
+        rgba(169, 216, 255, 0.55),
+        transparent 55%);
+    pointer-events: none;
+  }
+
+  >* {
+    position: relative;
+  }
+}
+
+/* Small helper for subtle note text */
+.note {
+  font-size: 14px;
+  color: rgba(18, 32, 51, 0.65);
+}
