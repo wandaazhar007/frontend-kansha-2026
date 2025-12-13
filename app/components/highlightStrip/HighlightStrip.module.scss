@@ -113,6 +113,10 @@
   color: var(--text-muted);
 }
 
+.iconTitle {
+  display: none;
+}
+
 @include down($bp-md) {
   .card {
     justify-content: flex-start;
@@ -122,5 +126,14 @@
 @include down($bp-sm) {
   .card {
     align-items: center;
+  }
+
+  .iconWrap {
+    display: none;
+  }
+
+  .iconTitle {
+    display: inline-block;
+    margin-right: .2rem;
   }
 }

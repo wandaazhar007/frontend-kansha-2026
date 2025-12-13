@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import HeroMain from "./components/heroMain/HeroMain";
 import FeaturedFavorites from "./components/featuredFavorites/FeaturedFavorites";
 import HighlightStrip from "./components/highlightStrip/HighlightStrip";
+import HowToOrder from "./components/howToOrder/HowToOrder";
 
 const siteName = "Kansha Hibachi & Sushi";
 
@@ -26,6 +27,7 @@ export default function HomePage() {
       <HeroMain />
       <FeaturedFavorites />
       <HighlightStrip />
+      <HowToOrder />
     </>
   );
 }

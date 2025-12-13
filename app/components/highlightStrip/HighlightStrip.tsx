@@ -59,7 +59,10 @@ export default function HighlightStrip() {
               </span>
 
               <div className={styles.content}>
-                <p className={styles.cardTitle}>{item.title}</p>
+                <p className={styles.cardTitle}>
+                  <FontAwesomeIcon icon={item.icon} className={styles.iconTitle} />
+                  {item.title}
+                </p>
                 <p className={styles.cardDesc}>{item.description}</p>
               </div>
             </li>
