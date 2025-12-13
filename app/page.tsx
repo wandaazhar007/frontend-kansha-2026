@@ -1,6 +1,7 @@
 // app/page.tsx
 import type { Metadata } from "next";
 import HeroMain from "./components/heroMain/HeroMain";
+import FeaturedFavorites from "./components/featuredFavorites/FeaturedFavorites";
 
 const siteName = "Kansha Hibachi & Sushi";
 
@@ -22,6 +23,7 @@ export default function HomePage() {
   return (
     <>
       <HeroMain />
+      <FeaturedFavorites />
     </>
   );
 }
