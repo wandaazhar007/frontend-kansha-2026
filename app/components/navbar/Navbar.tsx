@@ -18,7 +18,7 @@ const navItems: NavItem[] = [
   { href: "/", label: "Home" },
   { href: "/menu", label: "Menu" },
   { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
+  // { href: "/contact", label: "Contact" },
 ];
 
 function isActivePath(pathname: string, href: string) {
