@@ -4,6 +4,7 @@ import HeroMain from "./components/heroMain/HeroMain";
 import FeaturedFavorites from "./components/featuredFavorites/FeaturedFavorites";
 import HighlightStrip from "./components/highlightStrip/HighlightStrip";
 import HowToOrder from "./components/howToOrder/HowToOrder";
+import WhyPeopleLove from "./components/whyPeopleLove/WhyPeopleLove";
 
 const siteName = "Kansha Hibachi & Sushi";
 
@@ -28,6 +29,7 @@ export default function HomePage() {
       <FeaturedFavorites />
       <HighlightStrip />
       <HowToOrder />
+      <WhyPeopleLove />
     </>
   );
 }
