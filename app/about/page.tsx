@@ -1,6 +1,8 @@
+import HeroAbout from "../components/heroAbout/HeroAbout";
+
 const AboutPage = () => {
   return (
-    <h1>Page About</h1>
+    <HeroAbout />
   );
 }
 
