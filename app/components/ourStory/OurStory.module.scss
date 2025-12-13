@@ -1,0 +1,193 @@
+@use "../../styles/variables" as *;
+@use "../../styles/responsive" as *;
+
+.section {
+  padding: $space-8 0;
+  background: rgb(255, 255, 214);
+  ;
+}
+
+.inner {
+  display: grid;
+  gap: $space-4;
+}
+
+.header {
+  @include down($bp-md) {
+    text-align: center;
+  }
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(15, 42, 74, 0.10);
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 10px 22px rgba(15, 42, 74, 0.08);
+  font-weight: 950;
+  color: rgba(15, 42, 74, 0.88);
+
+  @include down($bp-md) {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.title {
+  margin: 0;
+  font-size: 28px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  font-weight: 950;
+  color: var(--kansha-blue-dark);
+}
+
+.subtitle {
+  margin: 10px 0 0;
+  color: rgba(18, 32, 51, 0.74);
+  font-weight: 700;
+  line-height: 1.55;
+  max-width: 70ch;
+
+  span {
+    font-weight: 900;
+    color: rgba(15, 42, 74, 0.88);
+  }
+
+  @include down($bp-md) {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.contentGrid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: $space-4;
+  align-items: start;
+
+  @include down($bp-lg) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.copyBox {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(15, 42, 74, 0.10);
+  border-radius: 22px;
+  box-shadow: 0 14px 34px rgba(15, 42, 74, 0.10);
+  padding: 18px 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.copyBox::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background:
+    radial-gradient(900px 240px at 15% 10%, rgba(255, 224, 138, 0.45), transparent 55%),
+    radial-gradient(900px 240px at 95% 10%, rgba(169, 216, 255, 0.45), transparent 55%),
+    radial-gradient(900px 240px at 20% 100%, rgba(191, 236, 200, 0.35), transparent 55%);
+  pointer-events: none;
+}
+
+.copyBox>* {
+  position: relative;
+}
+
+.copy {
+  margin: 0;
+  color: rgba(18, 32, 51, 0.74);
+  font-weight: 650;
+  line-height: 1.7;
+}
+
+.copy+.copy {
+  margin-top: 12px;
+}
+
+.bullets {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: $space-3;
+}
+
+.bulletCard {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+
+  padding: 14px 14px;
+  border-radius: 18px;
+  border: 1px solid rgba(15, 42, 74, 0.10);
+  background: rgba(255, 255, 255, 0.66);
+  box-shadow: 0 12px 28px rgba(15, 42, 74, 0.08);
+
+  transition: transform 0.12s ease, box-shadow 0.12s ease,
+    background 0.12s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 16px 34px rgba(15, 42, 74, 0.12);
+    background: rgba(255, 255, 255, 0.82);
+  }
+
+  @include down($bp-md) {
+    text-align: left;
+  }
+}
+
+.iconWrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+
+  background: radial-gradient(90px 46px at 30% 20%,
+      rgba(255, 224, 138, 0.70),
+      transparent 60%),
+    radial-gradient(90px 46px at 70% 80%,
+      rgba(169, 216, 255, 0.70),
+      transparent 60%),
+    rgba(255, 255, 255, 0.7);
+
+  border: 1px solid rgba(15, 42, 74, 0.12);
+}
+
+.icon {
+  font-size: 16px;
+  color: var(--kansha-blue-dark);
+}
+
+.bulletText {
+  min-width: 0;
+}
+
+.bulletTitle {
+  margin: 0;
+  font-weight: 950;
+  color: var(--kansha-blue-dark);
+  letter-spacing: -0.01em;
+}
+
+.bulletDesc {
+  margin: 6px 0 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--text-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bulletCard {
+    transition: none !important;
+  }
+}
