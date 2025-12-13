@@ -1,0 +1,126 @@
+@use "../../styles/variables" as *;
+@use "../../styles/responsive" as *;
+
+.strip {
+  padding: $space-6 0 $space-6;
+}
+
+.inner {
+  display: grid;
+  gap: $space-4;
+}
+
+.header {
+  display: grid;
+  gap: 6px;
+}
+
+.title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  color: var(--kansha-blue-dark);
+
+  @include down($bp-md) {
+    text-align: center;
+    font-size: 15px;
+  }
+}
+
+.grid {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: $space-3;
+
+  @include down($bp-lg) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include down($bp-xs) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+
+  padding: 14px 14px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.75);
+  box-shadow: 0 10px 24px rgba(15, 42, 74, 0.08);
+
+  transition: transform 0.12s ease, box-shadow 0.12s ease,
+    background 0.12s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 30px rgba(15, 42, 74, 0.12);
+    background: rgba(255, 255, 255, 0.86);
+  }
+
+  @include down($bp-md) {
+    padding: 14px 14px;
+  }
+}
+
+.iconWrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+
+  background: radial-gradient(80px 40px at 30% 20%,
+      rgba(255, 224, 138, 0.75),
+      transparent 60%),
+    radial-gradient(80px 40px at 70% 80%,
+      rgba(169, 216, 255, 0.75),
+      transparent 60%),
+    rgba(255, 255, 255, 0.7);
+
+  border: 1px solid rgba(15, 42, 74, 0.12);
+}
+
+.icon {
+  font-size: 16px;
+  color: var(--kansha-blue-dark);
+}
+
+.content {
+  min-width: 0;
+}
+
+.cardTitle {
+  margin: 0;
+  font-weight: 900;
+  color: var(--kansha-blue-dark);
+  letter-spacing: -0.01em;
+}
+
+.cardDesc {
+  margin: 4px 0 0 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--text-muted);
+}
+
+@include down($bp-md) {
+  .card {
+    justify-content: flex-start;
+  }
+}
+
+@include down($bp-sm) {
+  .card {
+    align-items: center;
+  }
+}
