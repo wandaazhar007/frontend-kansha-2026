@@ -224,6 +224,13 @@
   margin: 0;
   display: grid;
   gap: 8px;
+  // font-size: 12px;
+}
+
+@media screen and (max-width: 700px) {
+  .hours {
+    font-size: 12px;
+  }
 }
 
 .hoursRow {

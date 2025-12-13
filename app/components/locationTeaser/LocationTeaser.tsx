@@ -19,7 +19,7 @@ const phoneHref = "tel:+16604299074";
 const email = "ss.kansha@gmail.com";
 
 const hours = [
-  { day: "Sun", time: "04:00 - 09:00" },
+  { day: "Sun", time: "11.00 AM - 08:00 PM" },
   { day: "Mon", time: "11.00 AM - 02:30 PM & 04:00 PM - 09:00 PM" },
   { day: "Tue", time: "11.00 AM - 02:30 PM & 04:00 PM - 09:00 PM" },
   { day: "Wed", time: "11.00 AM - 02:30 PM & 04:00 PM - 09:00 PM" },
