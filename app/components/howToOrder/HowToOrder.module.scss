@@ -3,6 +3,13 @@
 
 .section {
   padding: $space-8 0;
+  // background: radial-gradient(90px 46px at 30% 20%,
+  //     rgba(255, 224, 138, 0.75),
+  //     transparent 90%),
+  //   rgba(159, 239, 97, 0.7);
+  background: rgb(214, 255, 230);
+  // background: var(--bg);
+  ;
 }
 
 .inner {
