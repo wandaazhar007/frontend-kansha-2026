@@ -1,0 +1,40 @@
+@use "../styles/variables" as *;
+@use "../styles/responsive" as *;
+
+.hero {
+  padding: $space-6 0 $space-5;
+}
+
+.h1 {
+  margin: 0;
+  font-weight: 950;
+  letter-spacing: -0.02em;
+  color: var(--kansha-blue-dark);
+  line-height: 1.08;
+
+  font-size: 34px;
+
+  @include down($bp-lg) {
+    font-size: 30px;
+  }
+
+  @include down($bp-md) {
+    font-size: 26px;
+  }
+
+  @include down($bp-sm) {
+    font-size: 24px;
+  }
+}
+
+.lead {
+  margin: 10px 0 0;
+  color: rgba(18, 32, 51, 0.72);
+  font-weight: 650;
+  line-height: 1.7;
+  max-width: 72ch;
+
+  @include down($bp-md) {
+    max-width: 60ch;
+  }
+}
