@@ -48,10 +48,10 @@ export default function Footer() {
             </p>
 
             <div className={styles.quickRow}>
-              <a className={styles.pill} href="tel:+16604299074">
+              <Link className={styles.pill} href="tel:+16604299074">
                 <FontAwesomeIcon icon={faPhone} />
                 <span>+1 660 429 9074</span>
-              </a>
+              </Link>
 
               <Link className={styles.pillGhost} href="/contact">
                 <FontAwesomeIcon icon={faMapLocationDot} />
@@ -109,9 +109,9 @@ export default function Footer() {
                 <FontAwesomeIcon icon={faPhone} />
                 <span>Phone: </span>
               </p>
-              <a className={styles.infoValueLink} href="tel:+16604299074">
+              <Link className={styles.infoValueLink} href="tel:+16604299074">
                 +1 660 429 9074
-              </a>
+              </Link>
             </div>
 
             <div className={styles.infoBlock}>
@@ -119,9 +119,9 @@ export default function Footer() {
                 <FontAwesomeIcon icon={faEnvelope} />
                 <span>Email</span>
               </p>
-              <a className={styles.infoValueLink} href="mailto:ss.kansha@gmail.com">
+              <Link className={styles.infoValueLink} href="mailto:ss.kansha@gmail.com">
                 ss.kansha@gmail.com
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -134,14 +134,14 @@ export default function Footer() {
 
           <p className={styles.copyRight}>
             Build with <span className={styles.heart} aria-hidden="true">❤️</span> by{" "}
-            <a
+            <Link
               className={styles.authorLink}
               href="https://wandaazhar.vercel.app/"
               target="_blank"
               rel="noopener noreferrer"
             >
               Wanda Azhar
-            </a>{" "}
+            </Link>{" "}
             in Detroit, MI. USA
           </p>
         </div>

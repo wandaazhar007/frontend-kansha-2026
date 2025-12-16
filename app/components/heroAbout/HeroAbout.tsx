@@ -39,10 +39,10 @@ export default function HeroAbout() {
               <span>View Menu</span>
             </Link>
 
-            <a className={styles.ghostBtn} href="tel:+16604299074">
+            <Link className={styles.ghostBtn} href="tel:+16604299074">
               <FontAwesomeIcon icon={faPhone} />
               <span>Call to Order</span>
-            </a>
+            </Link>
           </div>
 
           <ul className={styles.miniStrip} aria-label="Kansha promise">

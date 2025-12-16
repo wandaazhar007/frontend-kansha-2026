@@ -27,10 +27,10 @@ export default function CtaClosing() {
                 <span>View Menu</span>
               </Link>
 
-              <a className={styles.ghostBtn} href="tel:+16604299074">
+              <Link className={styles.ghostBtn} href="tel:+16604299074">
                 <FontAwesomeIcon icon={faPhone} />
                 <span>Call to Order</span>
-              </a>
+              </Link>
             </div>
 
             <p className={styles.address}>

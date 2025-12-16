@@ -16,9 +16,10 @@ import ProductGridSkeleton from "../components/menu/ProductGridSkeleton";
 import ProductDetailModal from "../components/menu/ProductDetailModal";
 
 import styles from "./MenuBrowser.module.scss";
+import Link from "next/link";
 
 const MIN_SKELETON_MS = 850;
-const PER_PAGE = 1;
+const PER_PAGE = 4;
 
 type CategoryTab = { key: "all" | ProductCategory; label: string };
 
@@ -240,10 +241,10 @@ export default function MenuBrowser() {
           </div>
 
           <div className={styles.callWrap}>
-            <a className={styles.callBtn} href="tel:+16604299074">
+            <Link className={styles.callBtn} href="tel:+16604299074">
               <FontAwesomeIcon icon={faPhone} />
               <span>(660) 429-9074</span>
-            </a>
+            </Link>
           </div>
         </div>
 
@@ -295,10 +296,10 @@ export default function MenuBrowser() {
             <p className={styles.errorText}>
               Please try again in a moment, or call us and we’ll help you order.
             </p>
-            <a className={styles.errorCta} href="tel:+16604299074">
+            <Link className={styles.errorCta} href="tel:+16604299074">
               <FontAwesomeIcon icon={faPhone} />
               <span>Call to Order</span>
-            </a>
+            </Link>
           </div>
         ) : totalItems === 0 ? (
           <div className={styles.emptyBox} role="status">

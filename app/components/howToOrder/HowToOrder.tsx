@@ -59,10 +59,10 @@ export default function HowToOrder() {
           </div>
 
           <div className={styles.ctaRow}>
-            <a className={styles.ctaPrimary} href="tel:+16604299074">
+            <Link className={styles.ctaPrimary} href="tel:+16604299074">
               <FontAwesomeIcon icon={faPhone} />
               <span>Call Now to Order</span>
-            </a>
+            </Link>
 
             <Link className={styles.ctaSecondary} href="/contact">
               <FontAwesomeIcon icon={faLocationDot} />

@@ -8,6 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import styles from "./LocationTeaser.module.scss";
+import Link from "next/link";
 
 const addressLines = [
   "303 Cooper Blvd Suite I",
@@ -56,7 +57,7 @@ export default function LocationTeaser() {
             </address>
 
             <div className={styles.ctaRow}>
-              <a
+              <Link
                 className={styles.ctaPrimary}
                 href="https://www.google.com/maps?daddr=303+Cooper+Blvd+Suite+I,+Warrensburg,+MO+64093"
                 target="_blank"
@@ -64,12 +65,12 @@ export default function LocationTeaser() {
               >
                 <FontAwesomeIcon icon={faMapLocationDot} />
                 <span>Get Directions</span>
-              </a>
+              </Link>
 
-              <a className={styles.ctaGhost} href={phoneHref}>
+              <Link className={styles.ctaGhost} href={phoneHref}>
                 <FontAwesomeIcon icon={faPhone} />
                 <span>Call to Order</span>
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -81,7 +82,7 @@ export default function LocationTeaser() {
             </p>
 
             <div className={styles.contactList}>
-              <a className={styles.contactItem} href={phoneHref}>
+              <Link className={styles.contactItem} href={phoneHref}>
                 <span className={styles.contactIcon} aria-hidden="true">
                   <FontAwesomeIcon icon={faPhone} />
                 </span>
@@ -89,9 +90,9 @@ export default function LocationTeaser() {
                   <span className={styles.contactLabel}>Phone</span>
                   <span className={styles.contactValue}>{phoneDisplay}</span>
                 </span>
-              </a>
+              </Link>
 
-              <a className={styles.contactItem} href={`mailto:${email}`}>
+              <Link className={styles.contactItem} href={`mailto:${email}`}>
                 <span className={styles.contactIcon} aria-hidden="true">
                   <FontAwesomeIcon icon={faEnvelope} />
                 </span>
@@ -99,7 +100,7 @@ export default function LocationTeaser() {
                   <span className={styles.contactLabel}>E-mail</span>
                   <span className={styles.contactValue}>{email}</span>
                 </span>
-              </a>
+              </Link>
             </div>
           </div>
 

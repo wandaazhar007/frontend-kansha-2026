@@ -164,9 +164,9 @@ export default function WhyPeopleLove() {
             <Link className={styles.ghostBtn} href="/menu">
               View Full Menu
             </Link>
-            <a className={styles.primaryBtn} href="tel:+16604299074">
+            <Link className={styles.primaryBtn} href="tel:+16604299074">
               Call Now to Order
-            </a>
+            </Link>
           </div>
         </header>
 

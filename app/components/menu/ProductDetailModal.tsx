@@ -13,6 +13,7 @@ import {
 
 import type { Product } from "../../menu/types";
 import styles from "./ProductDetailModal.module.scss";
+import Link from "next/link";
 
 type Props = {
   open: boolean;
@@ -249,10 +250,10 @@ export default function ProductDetailModal({ open, product, onClose }: Props) {
               <p className={styles.desc}>{product.description}</p>
 
               <div className={styles.ctas}>
-                <a className={styles.primaryBtn} href="tel:+16604299074">
+                <Link className={styles.primaryBtn} href="tel:+16604299074">
                   <FontAwesomeIcon icon={faPhone} />
                   <span>Call to Order</span>
-                </a>
+                </Link>
 
                 <p className={styles.note}>
                   We’ll confirm your pick-up time on the phone.

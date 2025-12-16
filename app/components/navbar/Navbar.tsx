@@ -90,9 +90,9 @@ export default function Navbar() {
   return (
     <header className={styles.header}>
       {/* Optional skip link (works best if your <main> has id="main-content") */}
-      <a className={styles.skipLink} href="#main-content">
+      <Link className={styles.skipLink} href="#main-content">
         Skip to content
-      </a>
+      </Link>
 
       <div className={`container ${styles.inner}`}>
         <div className={styles.left}>
@@ -134,22 +134,22 @@ export default function Navbar() {
             })}
           </ul>
 
-          <a className={styles.callBtn} href="tel:+16604299074">
+          <Link className={styles.callBtn} href="tel:+16604299074">
             <FontAwesomeIcon icon={faPhone} />
             <span>Call: +1 660 429 9074</span>
-          </a>
+          </Link>
         </nav>
 
         {/* Mobile controls */}
         <div className={styles.mobileControls}>
-          <a
+          <Link
             className={styles.callIconBtn}
             href="tel:+16604299074"
             aria-label="Call to order"
             onClick={closeMenu}
           >
             <FontAwesomeIcon icon={faPhone} />
-          </a>
+          </Link>
 
           <button
             ref={menuBtnRef}
@@ -200,14 +200,14 @@ export default function Navbar() {
           </ul>
 
           <div className={styles.mobileCtas}>
-            <a
+            <Link
               className={styles.mobileCallBtn}
               href="tel:+16604299074"
               onClick={closeMenu}
             >
               <FontAwesomeIcon icon={faPhone} />
               Call to Order
-            </a>
+            </Link>
             <Link className={styles.mobileGhostBtn} href="/contact" onClick={closeMenu}>
               Get Directions
             </Link>

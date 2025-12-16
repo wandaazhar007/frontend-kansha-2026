@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./FeaturedFavorites.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
 
 type FavoriteItem = {
   title: string;
@@ -16,8 +17,8 @@ export default function FeaturedFavorites() {
   const trackRef = useRef<HTMLDivElement | null>(null);
 
   // GANTI nomor telpon di sini
-  const PHONE_NUMBER = "+12081234567"; // contoh format E.164
-  const PHONE_LABEL = "(208) 123-4567"; // label yang tampil di tombol
+  const PHONE_NUMBER = "+16604299074"; // contoh format E.164
+  const PHONE_LABEL = "(660) 0429-9074"; // label yang tampil di tombol
 
   const [selected, setSelected] = useState<FavoriteItem | null>(null);
 
@@ -230,13 +231,13 @@ export default function FeaturedFavorites() {
                 </div>
 
                 <div className={styles.modalActions}>
-                  <a
+                  <Link
                     className={styles.callBtn}
                     href={`tel:${PHONE_NUMBER}`}
                     aria-label={`Call to order: ${PHONE_LABEL}`}
                   >
-                    Call to Order — {PHONE_LABEL}
-                  </a>
+                    Call to Order
+                  </Link>
 
                   <button
                     type="button"
