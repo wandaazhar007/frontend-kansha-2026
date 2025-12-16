@@ -177,6 +177,7 @@ export default function WhyPeopleLove() {
                 <span className={styles.iconWrap} aria-hidden="true">
                   <FontAwesomeIcon icon={p.icon} className={styles.icon} />
                 </span>
+                <FontAwesomeIcon icon={p.icon} className={styles.iconMobile} />
                 <p className={styles.cardTitle}>{p.title}</p>
               </div>
               <p className={styles.cardDesc}>{p.desc}</p>
