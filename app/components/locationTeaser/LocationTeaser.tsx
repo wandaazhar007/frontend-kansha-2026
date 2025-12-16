@@ -4,7 +4,7 @@ import {
   faLocationDot,
   faPhone,
   faEnvelope,
-  faMapLocationDot,
+  faLocationArrow,
 } from "@fortawesome/free-solid-svg-icons";
 
 import styles from "./LocationTeaser.module.scss";
@@ -59,11 +59,11 @@ export default function LocationTeaser() {
             <div className={styles.ctaRow}>
               <Link
                 className={styles.ctaPrimary}
-                href="https://www.google.com/maps?daddr=303+Cooper+Blvd+Suite+I,+Warrensburg,+MO+64093"
+                href="https://goo.gl/maps/V9qXQh6mKFZmb15Z7"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <FontAwesomeIcon icon={faMapLocationDot} />
+                <FontAwesomeIcon icon={faLocationArrow} />
                 <span>Get Directions</span>
               </Link>
 

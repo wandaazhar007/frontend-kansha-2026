@@ -64,7 +64,7 @@ export default function HowToOrder() {
               <span>Call Now to Order</span>
             </Link>
 
-            <Link className={styles.ctaSecondary} href="/contact">
+            <Link className={styles.ctaSecondary} href="https://goo.gl/maps/V9qXQh6mKFZmb15Z7" target="_blank">
               <FontAwesomeIcon icon={faLocationDot} />
               <span>Plan Your Pick-Up</span>
             </Link>

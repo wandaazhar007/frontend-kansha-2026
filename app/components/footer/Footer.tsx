@@ -5,7 +5,7 @@ import {
   faPhone,
   faLocationDot,
   faEnvelope,
-  faMapLocationDot,
+  faLocationArrow,
 } from "@fortawesome/free-solid-svg-icons";
 
 import styles from "./Footer.module.scss";
@@ -53,8 +53,8 @@ export default function Footer() {
                 <span>+1 660 429 9074</span>
               </Link>
 
-              <Link className={styles.pillGhost} href="/contact">
-                <FontAwesomeIcon icon={faMapLocationDot} />
+              <Link className={styles.pillGhost} href="https://goo.gl/maps/V9qXQh6mKFZmb15Z7" target="_blank">
+                <FontAwesomeIcon icon={faLocationArrow} />
                 <span>Get Directions</span>
               </Link>
             </div>
@@ -81,8 +81,8 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link className={styles.link} href="/contact">
-                  Contact
+                <Link className={styles.link} href="/privacy-policy">
+                  Privacy Policy
                 </Link>
               </li>
             </ul>

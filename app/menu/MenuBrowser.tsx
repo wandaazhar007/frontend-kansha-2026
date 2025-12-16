@@ -234,7 +234,7 @@ export default function MenuBrowser() {
               className={styles.searchInput}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Live search (e.g., chicken, roll, shrimp)…"
+              placeholder="Search (e.g., chicken, roll, shrimp)…"
               autoComplete="off"
               inputMode="search"
             />
