@@ -11,7 +11,7 @@ import {
 import styles from "./Footer.module.scss";
 
 export default function Footer() {
-  const year = 2025;
+  const year = 2026;
 
   return (
     <footer className={styles.footer} aria-label="Site footer">
@@ -75,14 +75,14 @@ export default function Footer() {
                   Menu
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link className={styles.link} href="/about">
                   About
                 </Link>
-              </li>
+              </li> */}
               <li>
-                <Link className={styles.link} href="/privacy-policy">
-                  Privacy Policy
+                <Link className={styles.link} href="/terms-conditions">
+                  Terms & Conditions
                 </Link>
               </li>
             </ul>
