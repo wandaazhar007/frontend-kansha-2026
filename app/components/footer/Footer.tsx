@@ -71,8 +71,8 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link className={styles.link} href="/menu">
-                  Menu
+                <Link className={styles.link} href="/privacy-policy">
+                  Privacy & Policy
                 </Link>
               </li>
               {/* <li>
