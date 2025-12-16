@@ -1,0 +1,272 @@
+@use "../styles/variables" as *;
+@use "../styles/responsive" as *;
+
+.page {
+  padding-bottom: $space-7;
+}
+
+.hero {
+  padding: $space-7 0 $space-5;
+  background:
+    radial-gradient(900px 260px at 15% 15%, rgba(255, 224, 138, 0.28), transparent 55%),
+    radial-gradient(900px 260px at 85% 40%, rgba(169, 216, 255, 0.25), transparent 55%),
+    radial-gradient(900px 260px at 60% 90%, rgba(191, 236, 200, 0.22), transparent 55%);
+}
+
+.kicker {
+  margin: 0 0 8px;
+  font-weight: 950;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(15, 42, 74, 0.70);
+}
+
+.h1 {
+  margin: 0;
+  font-weight: 950;
+  letter-spacing: -0.02em;
+  color: var(--kansha-blue-dark);
+  line-height: 1.08;
+  font-size: clamp(28px, 3.2vw, 42px);
+}
+
+.lead {
+  margin: 10px 0 0;
+  color: rgba(18, 32, 51, 0.72);
+  font-weight: 650;
+  line-height: 1.7;
+  max-width: 72ch;
+}
+
+.content {
+  padding: $space-5 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: $space-5;
+
+  @include down($bp-lg) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.toc {
+  @include down($bp-lg) {
+    display: none;
+  }
+}
+
+.tocCard {
+  position: sticky;
+  top: 92px;
+  border-radius: 18px;
+  border: 1px solid rgba(15, 42, 74, 0.12);
+  background: rgba(255, 255, 255, 0.84);
+  box-shadow: 0 18px 40px rgba(15, 42, 74, 0.10);
+  padding: 14px;
+}
+
+.tocTitle {
+  margin: 0 0 10px;
+  font-weight: 950;
+  color: var(--kansha-blue-dark);
+  letter-spacing: -0.01em;
+}
+
+.tocNav {
+  display: grid;
+  gap: 8px;
+
+  a {
+    color: rgba(15, 42, 74, 0.78);
+    font-weight: 750;
+    text-decoration: none;
+    padding: 8px 10px;
+    border-radius: 12px;
+    border: 1px solid transparent;
+    transition: background 160ms ease, border-color 160ms ease;
+
+    &:hover {
+      background: rgba(169, 216, 255, 0.18);
+      border-color: rgba(15, 42, 74, 0.10);
+    }
+
+    &:focus-visible {
+      outline: 3px solid rgba(169, 216, 255, 0.55);
+      outline-offset: 2px;
+    }
+  }
+}
+
+.article {
+  display: grid;
+  gap: $space-4;
+}
+
+.card {
+  border-radius: 18px;
+  border: 1px solid rgba(15, 42, 74, 0.12);
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 18px 42px rgba(15, 42, 74, 0.10);
+  padding: 16px;
+}
+
+.section {
+  border-radius: 18px;
+  border: 1px solid rgba(15, 42, 74, 0.10);
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 14px 34px rgba(15, 42, 74, 0.08);
+  padding: 16px;
+
+  scroll-margin-top: 96px;
+}
+
+.h2 {
+  margin: 0 0 10px;
+  font-weight: 950;
+  color: var(--kansha-blue-dark);
+  letter-spacing: -0.01em;
+  font-size: 18px;
+
+  @include down($bp-sm) {
+    font-size: 16px;
+  }
+}
+
+.p {
+  margin: 0;
+  color: rgba(18, 32, 51, 0.72);
+  font-weight: 650;
+  line-height: 1.75;
+}
+
+.ul {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 10px;
+
+  li {
+    color: rgba(18, 32, 51, 0.72);
+    font-weight: 650;
+    line-height: 1.75;
+  }
+}
+
+.noteBox {
+  margin-top: 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(15, 42, 74, 0.10);
+  background:
+    radial-gradient(900px 260px at 15% 20%, rgba(255, 224, 138, 0.16), transparent 55%),
+    radial-gradient(900px 260px at 85% 70%, rgba(191, 236, 200, 0.14), transparent 55%),
+    rgba(255, 255, 255, 0.78);
+  box-shadow: 0 14px 34px rgba(15, 42, 74, 0.08);
+  padding: 14px;
+}
+
+.noteTitle {
+  margin: 0 0 6px;
+  font-weight: 950;
+  color: rgba(15, 42, 74, 0.86);
+}
+
+.noteText {
+  margin: 0;
+  color: rgba(18, 32, 51, 0.70);
+  font-weight: 650;
+  line-height: 1.7;
+}
+
+.link {
+  color: rgba(15, 42, 74, 0.92);
+  font-weight: 850;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  &:focus-visible {
+    outline: 3px solid rgba(255, 224, 138, 0.55);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+}
+
+.contactCard {
+  margin-top: 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(15, 42, 74, 0.12);
+  background:
+    radial-gradient(800px 220px at 20% 10%, rgba(255, 224, 138, 0.20), transparent 55%),
+    radial-gradient(800px 220px at 80% 90%, rgba(169, 216, 255, 0.16), transparent 55%),
+    rgba(255, 255, 255, 0.86);
+  box-shadow: 0 14px 34px rgba(15, 42, 74, 0.10);
+  padding: 14px;
+  display: grid;
+  gap: 12px;
+}
+
+.contactRow {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 10px;
+
+  @include down($bp-sm) {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+}
+
+.contactLabel {
+  font-weight: 950;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(15, 42, 74, 0.65);
+}
+
+.contactValue {
+  color: rgba(18, 32, 51, 0.78);
+  font-weight: 750;
+  line-height: 1.6;
+}
+
+.contactLink {
+  color: rgba(15, 42, 74, 0.92);
+  font-weight: 850;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+
+  &:hover {
+    opacity: 0.92;
+  }
+
+  &:focus-visible {
+    outline: 3px solid rgba(169, 216, 255, 0.55);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+}
+
+.bottomNote {
+  padding: 8px 2px 0;
+}
+
+.small {
+  margin: 0;
+  font-size: 12px;
+  color: rgba(18, 32, 51, 0.62);
+  font-weight: 650;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tocNav a {
+    transition: none !important;
+  }
+}

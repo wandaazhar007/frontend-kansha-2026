@@ -66,8 +66,8 @@ export default function Footer() {
 
             <ul className={styles.linkList}>
               <li>
-                <Link className={styles.link} href="/">
-                  Home
+                <Link className={styles.link} href="/refund-policy">
+                  Refund Policy
                 </Link>
               </li>
               <li>
