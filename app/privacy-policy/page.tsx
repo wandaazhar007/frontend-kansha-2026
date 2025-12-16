@@ -29,7 +29,7 @@ export const metadata: Metadata = {
 };
 
 export default function PrivacyPolicyPage() {
-  const lastUpdated = "2025";
+  const lastUpdated = "2026";
 
   const jsonLd = {
     "@context": "https://schema.org",
