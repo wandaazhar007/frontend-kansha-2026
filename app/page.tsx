@@ -11,18 +11,31 @@ import LocationTeaser from "./components/locationTeaser/LocationTeaser";
 
 const siteName = "Kansha Hibachi & Sushi";
 
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ??
+  "https://kanshamissouri.com";
+
+const ogImage = `${siteUrl}/og-kansha.jpg`;
+
 export const metadata: Metadata = {
   title: "Premium Hibachi & Sushi, Simple Everyday Price",
   description:
     "Fresh from the grill and sushi bar to your box — fast, tasty, and friendly for your wallet. Call to order: (660) 429-9074.",
-  alternates: { canonical: "/" },
+  alternates: { canonical: siteUrl },
   openGraph: {
     title: "Premium Hibachi & Sushi, Simple Everyday Price",
     description:
       "Fresh from the grill and sushi bar to your box — fast, tasty, and friendly for your wallet.",
-    url: "/",
+    url: siteUrl,
     type: "website",
-    images: ["/logo-kansha-hibachi-sushi.png"],
+    images: [
+      {
+        url: ogImage,
+        width: 1200,
+        height: 630,
+        alt: "Kansha Hibachi & Sushi — Hibachi & Sushi To-Go",
+      },
+    ],
     siteName,
   },
   twitter: {
@@ -30,63 +43,41 @@ export const metadata: Metadata = {
     title: "Premium Hibachi & Sushi, Simple Everyday Price",
     description:
       "Premium hibachi & sushi to-go in Warrensburg, MO. Call to order: (660) 429-9074.",
-    images: ["/logo-kansha-hibachi-sushi.png"],
+    images: [ogImage],
   },
 };
 
 export default function HomePage() {
-  const jsonLd = {
+  const homeWebPageJsonLd = {
     "@context": "https://schema.org",
-    "@type": "Restaurant",
-    name: "Kansha Hibachi & Sushi",
-    url: "/",
-    image: ["/kansha-sushi-hibachi-hero.png", "/logo-kansha-hibachi-sushi.png"],
-    telephone: "+1-660-429-9074",
-    email: "ss.kansha@gmail.com",
-    priceRange: "$6 - $30",
-    servesCuisine: ["Japanese", "Hibachi", "Sushi"],
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "303 Cooper Blvd Suite I",
-      addressLocality: "Warrensburg",
-      addressRegion: "MO",
-      postalCode: "64093",
-      addressCountry: "US",
+    "@type": "WebPage",
+    name: "Home",
+    url: siteUrl,
+    inLanguage: "en",
+    isPartOf: {
+      "@type": "WebSite",
+      name: siteName,
+      url: siteUrl,
     },
-    openingHoursSpecification: [
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: "Sunday",
-        opens: "16:00",
-        closes: "21:00",
-      },
-      ...["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"].map(
-        (d) => ({
-          "@type": "OpeningHoursSpecification",
-          dayOfWeek: d,
-          opens: "11:00",
-          closes: "14:30",
-        })
-      ),
-      ...["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"].map(
-        (d) => ({
-          "@type": "OpeningHoursSpecification",
-          dayOfWeek: d,
-          opens: "16:00",
-          closes: "21:00",
-        })
-      ),
-    ],
-    hasMenu: "/menu",
-    sameAs: [],
+    about: {
+      "@type": "Restaurant",
+      name: siteName,
+      url: siteUrl,
+    },
+    primaryImageOfPage: {
+      "@type": "ImageObject",
+      url: ogImage,
+      width: 1200,
+      height: 630,
+    },
   };
 
   return (
-    <main id="main-content">
+    <>
       <Script
-        id="kansha-home-jsonld"
+        id="jsonld-home-webpage"
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(homeWebPageJsonLd) }}
       />
 
       <HeroMain />
@@ -95,6 +86,6 @@ export default function HomePage() {
       <HowToOrder />
       <WhyPeopleLove />
       <LocationTeaser />
-    </main>
+    </>
   );
 }

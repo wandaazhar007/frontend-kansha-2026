@@ -9,8 +9,11 @@ const siteName = "Kansha Hibachi & Sushi";
 const siteDescription =
   "Premium hibachi & sushi with simple everyday prices. Fast, fresh to-go in Warrensburg, MO. Call to order: +1 660 429 9074.";
 
-// NOTE: Update this to your real domain when ready
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://kanshamissouri.com";
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ??
+  "https://kanshamissouri.com";
+
+const ogImage = `${siteUrl}/og-kansha.jpg`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -29,9 +32,11 @@ export const metadata: Metadata = {
     "Affordable hibachi near me",
     "California Roll Warrensburg",
     "Fast hibachi and sushi",
+    "Hibachi to-go Warrensburg",
+    "Sushi to-go Warrensburg",
   ],
   alternates: {
-    canonical: "/",
+    canonical: siteUrl,
   },
   icons: {
     icon: "/icon-kansha-hibachi-sushi.ico",
@@ -40,17 +45,17 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    url: "/",
+    url: siteUrl,
     title: `${siteName} | Premium Taste, Simple Price, Fast & Fresh`,
     description: siteDescription,
     siteName,
     locale: "en_US",
     images: [
       {
-        url: "/logo-kansha-hibachi-sushi.png",
+        url: ogImage,
         width: 1200,
         height: 630,
-        alt: `${siteName} logo`,
+        alt: `${siteName} — Hibachi & Sushi To-Go`,
       },
     ],
   },
@@ -58,7 +63,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${siteName} | Premium Taste, Simple Price, Fast & Fresh`,
     description: siteDescription,
-    images: ["/logo-kansha-hibachi-sushi.png"],
+    images: [ogImage],
   },
   robots: {
     index: true,
@@ -82,14 +87,20 @@ export const viewport: Viewport = {
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const jsonLd = {
+  const restaurantJsonLd = {
     "@context": "https://schema.org",
     "@type": "Restaurant",
     name: siteName,
     url: siteUrl,
-    telephone: "+16604299074",
+    image: [
+      `${siteUrl}/og-kansha.jpg`,
+      `${siteUrl}/kansha-sushi-hibachi-hero.png`,
+      `${siteUrl}/logo-kansha-hibachi-sushi.png`,
+    ],
+    telephone: "+1-660-429-9074",
+    email: "ss.kansha@gmail.com",
+    priceRange: "$6 - $30",
     servesCuisine: ["Japanese", "Hibachi", "Sushi"],
-    priceRange: "$6-$30",
     address: {
       "@type": "PostalAddress",
       streetAddress: "303 Cooper Blvd Suite I",
@@ -98,6 +109,11 @@ export default function RootLayout({
       postalCode: "64093",
       addressCountry: "US",
     },
+    sameAs: [
+      "https://www.facebook.com/kanshahibachiexpress/",
+      "https://www.instagram.com/kansha_express/",
+      "https://goo.gl/maps/V9qXQh6mKFZmb15Z7",
+    ],
   };
 
   return (
@@ -106,13 +122,15 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           // eslint-disable-next-line react/no-danger
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(restaurantJsonLd) }}
         />
       </head>
       <body>
         <div className="siteShell">
           <Navbar />
-          <main className="main">{children}</main>
+          <main className="main" id="main-content">
+            {children}
+          </main>
           <Footer />
         </div>
       </body>
