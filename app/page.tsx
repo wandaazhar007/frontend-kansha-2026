@@ -22,7 +22,7 @@ export const metadata: Metadata = {
       "Fresh from the grill and sushi bar to your box — fast, tasty, and friendly for your wallet.",
     url: "/",
     type: "website",
-    images: ["/kansha-sushi-hibachi-hero.png"],
+    images: ["/logo-kansha-hibachi-sushi.png"],
     siteName,
   },
   twitter: {
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     title: "Premium Hibachi & Sushi, Simple Everyday Price",
     description:
       "Premium hibachi & sushi to-go in Warrensburg, MO. Call to order: (660) 429-9074.",
-    images: ["/kansha-sushi-hibachi-hero.png"],
+    images: ["/logo-kansha-hibachi-sushi.png"],
   },
 };
 
