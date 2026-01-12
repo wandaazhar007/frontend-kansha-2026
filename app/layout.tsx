@@ -13,7 +13,13 @@ const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ??
   "https://kanshamissouri.com";
 
-const ogImage = `${siteUrl}/og-kansha.jpg`;
+const ogImagePath = "/og-kansha.jpg"; // in /public
+const ogImageAbs = `${siteUrl}${ogImagePath}`;
+
+// Existing icon (ico). If you later add an apple touch icon PNG,
+// create: /public/apple-touch-icon.png (180x180) and keep the line below.
+const faviconIco = "/icon-kansha-hibachi-sushi.ico";
+const appleTouchIconPng = "/apple-touch-icon.png"; // OPTIONAL if you add the file
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -39,9 +45,13 @@ export const metadata: Metadata = {
     canonical: siteUrl,
   },
   icons: {
-    icon: "/icon-kansha-hibachi-sushi.ico",
-    shortcut: "/icon-kansha-hibachi-sushi.ico",
-    apple: "/icon-kansha-hibachi-sushi.ico",
+    icon: [{ url: faviconIco, type: "image/x-icon" }],
+    shortcut: faviconIco,
+    // Keep ICO as fallback; prefer PNG if/when available
+    apple: [
+      { url: appleTouchIconPng, type: "image/png" },
+      { url: faviconIco, type: "image/x-icon" },
+    ],
   },
   openGraph: {
     type: "website",
@@ -52,7 +62,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: ogImage,
+        url: ogImageAbs,
         width: 1200,
         height: 630,
         alt: `${siteName} — Hibachi & Sushi To-Go`,
@@ -63,7 +73,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${siteName} | Premium Taste, Simple Price, Fast & Fresh`,
     description: siteDescription,
-    images: [ogImage],
+    images: [ogImageAbs],
   },
   robots: {
     index: true,
@@ -90,10 +100,11 @@ export default function RootLayout({
   const restaurantJsonLd = {
     "@context": "https://schema.org",
     "@type": "Restaurant",
+    "@id": `${siteUrl}/#restaurant`,
     name: siteName,
     url: siteUrl,
     image: [
-      `${siteUrl}/og-kansha.jpg`,
+      `${siteUrl}${ogImagePath}`,
       `${siteUrl}/kansha-sushi-hibachi-hero.png`,
       `${siteUrl}/logo-kansha-hibachi-sushi.png`,
     ],
@@ -109,6 +120,57 @@ export default function RootLayout({
       postalCode: "64093",
       addressCountry: "US",
     },
+    geo: {
+      "@type": "GeoCoordinates",
+      // NOTE: isi dengan koordinat real kalau kamu punya (lebih kuat untuk local SEO)
+      // latitude: 38.7623,
+      // longitude: -93.7367,
+    },
+    hasMap: "https://goo.gl/maps/V9qXQh6mKFZmb15Z7",
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: "Monday",
+        opens: "11:00",
+        closes: "21:00",
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: "Tuesday",
+        opens: "11:00",
+        closes: "21:00",
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: "Wednesday",
+        opens: "11:00",
+        closes: "21:00",
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: "Thursday",
+        opens: "11:00",
+        closes: "21:00",
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: "Friday",
+        opens: "11:00",
+        closes: "21:00",
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: "Saturday",
+        opens: "11:00",
+        closes: "21:00",
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: "Sunday",
+        opens: "11:00",
+        closes: "20:00",
+      },
+    ],
     sameAs: [
       "https://www.facebook.com/kanshahibachiexpress/",
       "https://www.instagram.com/kansha_express/",
@@ -119,12 +181,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Sitewide JSON-LD */}
         <script
           type="application/ld+json"
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: JSON.stringify(restaurantJsonLd) }}
         />
       </head>
+
       <body>
         <div className="siteShell">
           <Navbar />
