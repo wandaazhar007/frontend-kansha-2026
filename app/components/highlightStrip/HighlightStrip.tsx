@@ -1,4 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import {
   faStar,
   faTag,
@@ -11,7 +12,7 @@ import styles from "./HighlightStrip.module.scss";
 type StripItem = {
   title: string;
   description: string;
-  icon: any;
+  icon: IconDefinition;
 };
 
 const items: StripItem[] = [
@@ -60,7 +61,10 @@ export default function HighlightStrip() {
 
               <div className={styles.content}>
                 <p className={styles.cardTitle}>
-                  <FontAwesomeIcon icon={item.icon} className={styles.iconTitle} />
+                  <FontAwesomeIcon
+                    icon={item.icon}
+                    className={styles.iconTitle}
+                  />
                   {item.title}
                 </p>
                 <p className={styles.cardDesc}>{item.description}</p>

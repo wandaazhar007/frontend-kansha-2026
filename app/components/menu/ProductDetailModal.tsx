@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -30,52 +30,57 @@ function clampIndex(i: number, len: number) {
 
 export default function ProductDetailModal({ open, product, onClose }: Props) {
   const dialogRef = useRef<HTMLDivElement | null>(null);
+  const touchStartX = useRef<number | null>(null);
+  const lastAnimRef = useRef<number>(0);
 
   const images = useMemo(() => {
-    const arr = product?.imageUrls?.filter(Boolean) || [];
-    return arr;
+    return product?.imageUrls?.filter(Boolean) ?? [];
   }, [product]);
 
   const hasMany = images.length > 1;
 
-  // active & previous index for animation
   const [idx, setIdx] = useState(0);
   const [prevIdx, setPrevIdx] = useState(0);
   const [dir, setDir] = useState<"next" | "prev">("next");
 
-  const lastAnimRef = useRef<number>(0);
+  const activeProductIdRef = useRef<string | null>(null);
 
-  const setIndexAnimated = (nextIndex: number) => {
-    if (!hasMany) return;
-    const now = Date.now();
-    // prevent double spam clicks that look glitchy
-    if (now - lastAnimRef.current < 180) return;
-    lastAnimRef.current = now;
+  if (product?.id !== activeProductIdRef.current) {
+    activeProductIdRef.current = product?.id ?? null;
 
-    setPrevIdx(idx);
-    setDir(nextIndex > idx ? "next" : "prev");
-    setIdx(clampIndex(nextIndex, images.length));
-  };
+    if (idx !== 0) setIdx(0);
+    if (prevIdx !== 0) setPrevIdx(0);
+    if (dir !== "next") setDir("next");
+  }
 
-  useEffect(() => {
-    if (open) {
-      setIdx(0);
-      setPrevIdx(0);
-      setDir("next");
-    }
-  }, [open, product?.id]);
+  const setIndexAnimated = useCallback(
+    (nextIndex: number) => {
+      if (!hasMany) return;
 
-  // lock body scroll when open
+      const now = Date.now();
+      if (now - lastAnimRef.current < 180) return;
+      lastAnimRef.current = now;
+
+      const safeNextIndex = clampIndex(nextIndex, images.length);
+
+      setPrevIdx(idx);
+      setDir(safeNextIndex > idx ? "next" : "prev");
+      setIdx(safeNextIndex);
+    },
+    [hasMany, idx, images.length]
+  );
+
   useEffect(() => {
     if (!open) return;
+
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+
     return () => {
       document.body.style.overflow = prev;
     };
   }, [open]);
 
-  // ESC + arrows
   useEffect(() => {
     if (!open) return;
 
@@ -89,14 +94,13 @@ export default function ProductDetailModal({ open, product, onClose }: Props) {
 
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
-  }, [open, onClose, hasMany, idx, images.length]);
+  }, [open, onClose, hasMany, idx, setIndexAnimated]);
 
-  // swipe support
-  const touchStartX = useRef<number | null>(null);
   const onTouchStart = (e: React.TouchEvent) => {
     if (!hasMany) return;
     touchStartX.current = e.touches[0]?.clientX ?? null;
   };
+
   const onTouchEnd = (e: React.TouchEvent) => {
     if (!hasMany) return;
 
@@ -136,7 +140,6 @@ export default function ProductDetailModal({ open, product, onClose }: Props) {
         <div className={styles.dialog} ref={dialogRef}>
           <div className={styles.topbar}>
             <div className={styles.topText}>
-              {/* <p className={styles.kicker}>Menu Detail</p> */}
               <h3 className={styles.title}>{product.name}</h3>
             </div>
 
@@ -156,10 +159,8 @@ export default function ProductDetailModal({ open, product, onClose }: Props) {
               onTouchStart={onTouchStart}
               onTouchEnd={onTouchEnd}
             >
-              {/* Animated image stage */}
               {activeImg ? (
                 <div className={styles.stage} aria-label="Product photos">
-                  {/* previous image */}
                   {hasMany && prevIdx !== idx && previousImg ? (
                     <div
                       key={`prev-${prevIdx}`}
@@ -177,7 +178,6 @@ export default function ProductDetailModal({ open, product, onClose }: Props) {
                     </div>
                   ) : null}
 
-                  {/* active image */}
                   <div
                     key={`active-${idx}`}
                     className={`${styles.slide} ${styles.slideActive} ${dir === "next" ? styles.dirNext : styles.dirPrev
@@ -199,7 +199,6 @@ export default function ProductDetailModal({ open, product, onClose }: Props) {
                 </div>
               )}
 
-              {/* arrows + dots only if multiple images */}
               {hasMany && (
                 <>
                   <button

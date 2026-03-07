@@ -5,6 +5,7 @@ import styles from "./FeaturedFavorites.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
+import Image from "next/image";
 
 type FavoriteItem = {
   title: string;
@@ -142,11 +143,13 @@ export default function FeaturedFavorites() {
               }}
             >
               <div className={styles.imageWrap}>
-                <img
+                <Image
                   src={item.image}
                   alt={item.title}
                   className={styles.image}
                   loading="lazy"
+                  width={300}
+                  height={300}
                 />
               </div>
 
@@ -210,10 +213,12 @@ export default function FeaturedFavorites() {
 
             <div className={styles.modalContent}>
               <div className={styles.modalImageWrap}>
-                <img
+                <Image
                   src={selected.image}
                   alt={selected.title}
                   className={styles.modalImage}
+                  width={300}
+                  height={300}
                 />
               </div>
 

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight, faArrowUpRightFromSquare, faLocationDot, faPhone, faUtensils } from "@fortawesome/free-solid-svg-icons";
+import { faArrowUpRightFromSquare, faLocationDot, faPhone, faUtensils } from "@fortawesome/free-solid-svg-icons";
 
 import styles from "./HeroMain.module.scss";
 

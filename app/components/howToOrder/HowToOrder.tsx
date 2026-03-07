@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import {
   faPhone,
   faUtensils,
@@ -13,7 +14,7 @@ import styles from "./HowToOrder.module.scss";
 type Step = {
   title: string;
   description: string;
-  icon: any;
+  icon: IconDefinition;
 };
 
 const steps: Step[] = [
