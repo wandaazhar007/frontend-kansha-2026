@@ -1,3 +1,5 @@
+// // app/menu/MenuBrowser.tsx
+
 // "use client";
 
 // import { useEffect, useMemo, useRef, useState } from "react";
@@ -71,7 +73,6 @@
 
 //   const lastRequestRef = useRef(0);
 
-//   // modal state
 //   const [selected, setSelected] = useState<Product | null>(null);
 //   const [modalOpen, setModalOpen] = useState(false);
 
@@ -124,8 +125,8 @@
 //         if (!res.ok) {
 //           let msg = `Failed to load menu (HTTP ${res.status}).`;
 //           try {
-//             const err = await res.json();
-//             if (err?.error) msg = String(err.error);
+//             const errData = (await res.json()) as { error?: string };
+//             if (errData?.error) msg = String(errData.error);
 //           } catch { }
 //           throw new Error(msg);
 //         }
@@ -135,12 +136,18 @@
 
 //         if (lastRequestRef.current !== requestId) return;
 //         setProducts(list);
-//       } catch (err: any) {
+//       } catch (err: unknown) {
 //         if (controller.signal.aborted) return;
 //         if (lastRequestRef.current !== requestId) return;
 
 //         setProducts([]);
-//         setErrorMsg(err?.message || "Something went wrong while loading the menu.");
+
+//         const message =
+//           err instanceof Error
+//             ? err.message
+//             : "Something went wrong while loading the menu.";
+
+//         setErrorMsg(message);
 //       } finally {
 //         if (lastRequestRef.current === requestId) {
 //           setLoading(false);
@@ -153,15 +160,9 @@
 //     return () => controller.abort();
 //   }, [API_BASE, category, debouncedQuery]);
 
-//   // pagination (client-side)
 //   const totalItems = products.length;
 //   const totalPages = Math.max(1, Math.ceil(totalItems / PER_PAGE));
-
 //   const safePage = Math.min(Math.max(page, 1), totalPages);
-//   useEffect(() => {
-//     if (page !== safePage) setPage(safePage);
-//     // eslint-disable-next-line react-hooks/exhaustive-deps
-//   }, [safePage]);
 
 //   const visible = useMemo(() => {
 //     const start = (safePage - 1) * PER_PAGE;
@@ -173,7 +174,7 @@
 //     const pages: number[] = [];
 
 //     let start = Math.max(1, safePage - 2);
-//     let end = Math.min(totalPages, start + max - 1);
+//     const end = Math.min(totalPages, start + max - 1);
 
 //     if (end - start + 1 < max) {
 //       start = Math.max(1, end - max + 1);
@@ -195,6 +196,7 @@
 
 //   const goToPage = async (nextPage: number) => {
 //     if (pagingLoading) return;
+
 //     const clamped = Math.min(Math.max(nextPage, 1), totalPages);
 //     if (clamped === safePage) return;
 
@@ -368,17 +370,20 @@
 //         )}
 //       </div>
 
-//       <ProductDetailModal open={modalOpen} product={selected} onClose={closeModal} />
+//       <ProductDetailModal
+//         open={modalOpen}
+//         product={selected}
+//         onClose={closeModal}
+//       />
 //     </section>
 //   );
 // }
 
-
-
-
+// app/menu/MenuBrowser.tsx
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMagnifyingGlass,
@@ -388,26 +393,17 @@ import {
   faFilter,
 } from "@fortawesome/free-solid-svg-icons";
 
-import type { Product, ProductCategory, ProductsResponse } from "./types";
+import type { Category, CategoriesResponse, Product, ProductsResponse } from "./types";
 import ProductCard from "../components/menu/ProductCard";
 import ProductGridSkeleton from "../components/menu/ProductGridSkeleton";
 import ProductDetailModal from "../components/menu/ProductDetailModal";
 
 import styles from "./MenuBrowser.module.scss";
-import Link from "next/link";
 
 const MIN_SKELETON_MS = 850;
 const PER_PAGE = 4;
 
-type CategoryTab = { key: "all" | ProductCategory; label: string };
-
-const categoryTabs: CategoryTab[] = [
-  { key: "all", label: "All" },
-  { key: "hibachi", label: "Hibachi" },
-  { key: "sushi", label: "Sushi" },
-  { key: "side", label: "Side" },
-  { key: "appetizer", label: "Appetizer" },
-];
+type CategoryKey = "all" | string;
 
 function normalizeBaseUrl(raw?: string) {
   const v = (raw || "").trim();
@@ -436,31 +432,103 @@ export default function MenuBrowser() {
     []
   );
 
-  const [category, setCategory] = useState<CategoryTab["key"]>("all");
+  // categories (tabs)
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [categoriesLoading, setCategoriesLoading] = useState(true);
+  const [categoriesError, setCategoriesError] = useState<string | null>(null);
+
+  // filters
+  const [category, setCategory] = useState<CategoryKey>("all");
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
-  const [loading, setLoading] = useState(true);
 
+  // products
+  const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState<Product[]>([]);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
+  // pagination
   const [page, setPage] = useState(1);
   const [pagingLoading, setPagingLoading] = useState(false);
 
   const lastRequestRef = useRef(0);
 
+  // modal
   const [selected, setSelected] = useState<Product | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
 
+  // debounce search
   useEffect(() => {
     const t = setTimeout(() => setDebouncedQuery(query.trim()), 320);
     return () => clearTimeout(t);
   }, [query]);
 
+  // reset page when filters change
   useEffect(() => {
     setPage(1);
   }, [category, debouncedQuery]);
 
+  // load categories once
+  useEffect(() => {
+    if (!API_BASE) {
+      setCategoriesLoading(false);
+      setCategoriesError(
+        "Missing API base URL. Please set NEXT_PUBLIC_API_BASE_URL in .env.local."
+      );
+      return;
+    }
+
+    const controller = new AbortController();
+
+    const loadCategories = async () => {
+      setCategoriesLoading(true);
+      setCategoriesError(null);
+
+      try {
+        const res = await fetch(`${API_BASE}categories`, {
+          method: "GET",
+          signal: controller.signal,
+          headers: { Accept: "application/json" },
+          cache: "no-store",
+        });
+
+        if (!res.ok) {
+          let msg = `Failed to load categories (HTTP ${res.status}).`;
+          try {
+            const errData = (await res.json()) as { error?: string };
+            if (errData?.error) msg = String(errData.error);
+          } catch { }
+          throw new Error(msg);
+        }
+
+        const data = (await res.json()) as CategoriesResponse;
+        const list = Array.isArray(data?.categories) ? data.categories : [];
+
+        // optional: sort by name for nicer UI
+        list.sort((a, b) => String(a.name).localeCompare(String(b.name)));
+
+        setCategories(list);
+      } catch (err: unknown) {
+        if (controller.signal.aborted) return;
+
+        const message =
+          err instanceof Error
+            ? err.message
+            : "Something went wrong while loading categories.";
+
+        setCategories([]);
+        setCategoriesError(message);
+      } finally {
+        if (!controller.signal.aborted) setCategoriesLoading(false);
+      }
+    };
+
+    loadCategories();
+
+    return () => controller.abort();
+  }, [API_BASE]);
+
+  // load products (depends on category/search)
   useEffect(() => {
     if (!API_BASE) {
       setLoading(false);
@@ -474,7 +542,7 @@ export default function MenuBrowser() {
     const requestId = Date.now();
     lastRequestRef.current = requestId;
 
-    const load = async () => {
+    const loadProducts = async () => {
       setLoading(true);
       setErrorMsg(null);
 
@@ -483,6 +551,7 @@ export default function MenuBrowser() {
       try {
         const params = new URLSearchParams();
 
+        // category is now categoryId (Firestore doc id)
         if (category !== "all") params.set("category", category);
         if (debouncedQuery) params.set("search", debouncedQuery);
 
@@ -492,6 +561,7 @@ export default function MenuBrowser() {
           method: "GET",
           signal: controller.signal,
           headers: { Accept: "application/json" },
+          cache: "no-store",
         });
 
         const elapsed = Date.now() - started;
@@ -511,6 +581,7 @@ export default function MenuBrowser() {
         const list = Array.isArray(data?.products) ? data.products : [];
 
         if (lastRequestRef.current !== requestId) return;
+
         setProducts(list);
       } catch (err: unknown) {
         if (controller.signal.aborted) return;
@@ -531,10 +602,17 @@ export default function MenuBrowser() {
       }
     };
 
-    load();
+    loadProducts();
 
     return () => controller.abort();
   }, [API_BASE, category, debouncedQuery]);
+
+  // build tabs (All + categories from API)
+  const categoryTabs = useMemo(() => {
+    const base = [{ key: "all" as const, label: "All" }];
+    const dynamic = categories.map((c) => ({ key: c.id, label: c.name }));
+    return [...base, ...dynamic];
+  }, [categories]);
 
   const totalItems = products.length;
   const totalPages = Math.max(1, Math.ceil(totalItems / PER_PAGE));
@@ -584,6 +662,12 @@ export default function MenuBrowser() {
 
   const showSkeleton = loading || pagingLoading;
 
+  const activeCategoryLabel = useMemo(() => {
+    if (category === "all") return "All";
+    const found = categories.find((c) => c.id === category);
+    return found?.name || "Category";
+  }, [category, categories]);
+
   return (
     <section className={styles.section} aria-labelledby="menu-browser-title">
       <div className={`container ${styles.inner}`}>
@@ -632,26 +716,38 @@ export default function MenuBrowser() {
             Category:
           </span>
 
-          {categoryTabs.map((t) => {
-            const active = t.key === category;
-            return (
-              <button
-                key={t.key}
-                type="button"
-                role="tab"
-                aria-selected={active}
-                className={`${styles.tab} ${active ? styles.tabActive : ""}`}
-                onClick={() => setCategory(t.key)}
-              >
-                {t.label}
-              </button>
-            );
-          })}
+          {categoriesLoading ? (
+            <span className={styles.statusMuted} aria-live="polite">
+              Loading categories…
+            </span>
+          ) : categoriesError ? (
+            <span className={styles.statusError} aria-live="polite">
+              {categoriesError}
+            </span>
+          ) : (
+            categoryTabs.map((t) => {
+              const active = t.key === category;
+              return (
+                <button
+                  key={t.key}
+                  type="button"
+                  role="tab"
+                  aria-selected={active}
+                  className={`${styles.tab} ${active ? styles.tabActive : ""}`}
+                  onClick={() => setCategory(t.key)}
+                >
+                  {t.label}
+                </button>
+              );
+            })
+          )}
         </div>
 
         <div className={styles.statusRow} aria-live="polite">
           {showSkeleton ? (
-            <span className={styles.statusMuted}>Loading menu…</span>
+            <span className={styles.statusMuted}>
+              Loading {activeCategoryLabel}…
+            </span>
           ) : errorMsg ? (
             <span className={styles.statusError}>{errorMsg}</span>
           ) : (
@@ -670,7 +766,9 @@ export default function MenuBrowser() {
           <ProductGridSkeleton count={PER_PAGE} />
         ) : errorMsg ? (
           <div className={styles.errorBox} role="alert">
-            <p className={styles.errorTitle}>We couldn’t load the menu right now.</p>
+            <p className={styles.errorTitle}>
+              We couldn’t load the menu right now.
+            </p>
             <p className={styles.errorText}>
               Please try again in a moment, or call us and we’ll help you order.
             </p>
@@ -746,11 +844,7 @@ export default function MenuBrowser() {
         )}
       </div>
 
-      <ProductDetailModal
-        open={modalOpen}
-        product={selected}
-        onClose={closeModal}
-      />
+      <ProductDetailModal open={modalOpen} product={selected} onClose={closeModal} />
     </section>
   );
 }
