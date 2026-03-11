@@ -1,9 +1,9 @@
-// app/menu/ProductCard.tsx
+// app/components/menu/ProductCard.tsx
 "use client";
 
 import Image from "next/image";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faImage } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faImage } from "@fortawesome/free-solid-svg-icons";
 
 import styles from "./ProductCard.module.scss";
 
@@ -48,7 +48,7 @@ export default function ProductCard({
           />
         ) : (
           <span className={styles.thumbFallback} aria-hidden="true">
-            <FontAwesomeIcon icon={faImage} />
+            {/* <FontAwesomeIcon icon={faImage} /> */}
           </span>
         )}
       </span>

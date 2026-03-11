@@ -66,7 +66,6 @@ export default function MenuPage() {
           </h1>
           <p className={styles.lead}>
             Simple menu, big flavor. Premium taste at friendly everyday prices.
-            Call to order: (660) 429-9074.
           </p>
         </div>
       </section>
